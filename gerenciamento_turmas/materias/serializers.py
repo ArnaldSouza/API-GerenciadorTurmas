@@ -5,3 +5,9 @@ class MateriaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Materia
         fields = '__all__'
+        
+class MateriaCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Materia
+        fields = ['nome', 'descricao']
+        

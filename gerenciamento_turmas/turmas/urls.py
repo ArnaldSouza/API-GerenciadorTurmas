@@ -3,8 +3,8 @@ from rest_framework.routers import DefaultRouter
 from .views import TurmaViewSet
 
 router = DefaultRouter()
-router.register(r'turmas',  TurmaViewSet)
+router.register(r'turmas', TurmaViewSet)
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path('api/', include(router.urls)),
 ]

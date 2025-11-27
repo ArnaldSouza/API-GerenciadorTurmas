@@ -5,3 +5,8 @@ class AlunoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Aluno
         fields = '__all__'
+
+class AlunoCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Aluno
+        fields = ['nome', 'matricula', 'email']
