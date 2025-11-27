@@ -1,0 +1,12 @@
+# Ignorar arquivos compilados do Python
+__pycache__/
+*.pyc
+
+# Ignorar banco de dados SQLite
+db.sqlite3
+
+# Ignorar arquivos de ambiente
+.env
+
+# Ignorar arquivos de configuração do VS Code
+.vscode/
