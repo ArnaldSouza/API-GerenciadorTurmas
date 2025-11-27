@@ -1,0 +1,116 @@
+syntax = "proto3";
+
+package gerenciador;
+
+message Empty {}
+
+
+
+
+// Aluno
+
+message AlunoId {
+  int32 id = 1;
+}
+
+message Aluno {
+  int32 id = 1;
+  string nome = 2;
+  string matricula = 3;
+  string email = 4;
+}
+
+message AlunosList {
+  repeated Aluno alunos = 1;
+}
+
+service AlunoService {
+  rpc ListAlunos (Empty) returns (AlunosList);
+  rpc GetAluno (AlunoId) returns (Aluno);
+  rpc CreateAluno (Aluno) returns (AlunoId);
+  rpc UpdateAluno (Aluno) returns (Empty);
+  rpc DeleteAluno (AlunoId) returns (Empty);
+}
+
+
+
+
+// Professor
+
+message ProfessorId {
+  int32 id = 1;
+}
+
+message Professor {
+  int32 id = 1;
+  string nome = 2;
+  string email = 3;
+}
+
+message ProfessoresList {
+  repeated Professor professores = 1;
+}
+
+service ProfessorService {
+  rpc ListProfessores (Empty) returns (ProfessoresList);
+  rpc GetProfessor (ProfessorId) returns (Professor);
+  rpc CreateProfessor (Professor) returns (ProfessorId);
+  rpc UpdateProfessor (Professor) returns (Empty);
+  rpc DeleteProfessor (ProfessorId) returns (Empty);
+}
+
+
+
+
+// Materia
+
+message MateriaId {
+  int32 id = 1;
+}
+
+message Materia {
+  int32 id = 1;
+  string nome = 2;
+  string descricao = 3;
+}
+
+message MateriasList {
+  repeated Materia materias = 1;
+}
+
+service MateriaService {
+  rpc ListMaterias (Empty) returns (MateriasList);
+  rpc GetMateria (MateriaId) returns (Materia);
+  rpc CreateMateria (Materia) returns (MateriaId);
+  rpc UpdateMateria (Materia) returns (Empty);
+  rpc DeleteMateria (MateriaId) returns (Empty);
+}
+
+
+
+
+// Turma
+
+message TurmaId {
+  int32 id = 1;
+}
+
+message Turma {
+  int32 id = 1;
+  int32 materia = 2;
+  int32 professor = 3;
+  repeated int32 alunos = 4;
+  string horario = 5;
+}
+
+message TurmasList {
+  repeated Turma turmas = 1;
+}
+
+service TurmaService {
+  rpc ListTurmas (Empty) returns (TurmasList);
+  rpc GetTurma (TurmaId) returns (Turma);
+  rpc CreateTurma (Turma) returns (TurmaId);
+  rpc UpdateTurma (Turma) returns (Empty);
+  rpc DeleteTurma (TurmaId) returns (Empty);
+}
