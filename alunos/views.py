@@ -3,7 +3,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from .models import Aluno
-from .serializers import AlunoSerializer, AlunoCreateSerializer
+from .serializers import AlunoSerializer, AlunoCreateSerializer, AlunoDropdownSerializer, AlunoResumoSerializer
 from turmas.models import Turma
 from turmas.serializers import TurmaSerializer, InscricaoTurmaSerializer
 
@@ -81,3 +81,20 @@ class AlunoViewSet(viewsets.ModelViewSet):
                 )
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    @action(detail=False, methods=['get'])
+    def dropdown(self, request):
+        """Lista de alunos para dropdowns no React"""
+        alunos = Aluno.objects.all()
+        serializer = AlunoDropdownSerializer(alunos, many=True)
+        return Response(serializer.data)
+    
+    @action(detail=False, methods=['get'])
+    def dashboard(self, request):
+        """Dados para dashboard de alunos"""
+        alunos = Aluno.objects.all()[:10]  # Top 10
+        serializer = AlunoResumoSerializer(alunos, many=True)
+        return Response({
+            'alunos': serializer.data,
+            'total_alunos': Aluno.objects.count(),
+        })

@@ -10,3 +10,23 @@ class AlunoCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Aluno
         fields = ['nome', 'matricula', 'email']
+
+class AlunoDropdownSerializer(serializers.ModelSerializer):
+    """Serializer otimizado para dropdowns no React"""
+    label = serializers.CharField(source='nome', read_only=True)
+    value = serializers.CharField(source='id', read_only=True)
+    
+    class Meta:
+        model = Aluno
+        fields = ['value', 'label', 'matricula']
+
+class AlunoResumoSerializer(serializers.ModelSerializer):
+    """Serializer para cards/resumos no dashboard"""
+    total_turmas = serializers.SerializerMethodField()
+    
+    class Meta:
+        model = Aluno
+        fields = ['id', 'nome', 'matricula', 'email', 'total_turmas']
+    
+    def get_total_turmas(self, obj):
+        return obj.turma_set.count()

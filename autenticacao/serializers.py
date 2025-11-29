@@ -26,3 +26,29 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         validated_data.pop('password_confirm')
         user = CustomUser.objects.create_user(**validated_data)
         return user
+
+class UserLoginSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField()
+
+    def validate(self, attrs):
+        username = attrs.get('username')
+        password = attrs.get('password')
+
+        if username and password:
+            user = authenticate(username=username, password=password)
+            if not user:
+                raise serializers.ValidationError('Credenciais inválidas.')
+            if not user.is_active:
+                raise serializers.ValidationError('Conta desativada.')
+            attrs['user'] = user
+        else:
+            raise serializers.ValidationError('Username e password são obrigatórios.')
+        
+        return attrs
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['id', 'username', 'email', 'first_name', 'last_name', 'tipo_usuario', 'date_joined']
+        read_only_fields = ['id', 'username', 'date_joined']
