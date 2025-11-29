@@ -16,13 +16,11 @@ from alunos.models import Aluno
 from professores.models import Professor
 from materias.models import Materia
 from turmas.models import Turma
-
-import gerenciador_pb2  # type: ignore
-import gerenciador_pb2_grpc  # type: ignore
-
+import gerenciador_pb2 
+import gerenciador_pb2_grpc  
 
 
-# --- Aluno ---
+# Aluno
 class AlunoService(gerenciador_pb2_grpc.AlunoServiceServicer):
     def ListAlunos(self, request, context):
         alunos = Aluno.objects.all()
@@ -40,7 +38,7 @@ class AlunoService(gerenciador_pb2_grpc.AlunoServiceServicer):
             )
         except Aluno.DoesNotExist:
             context.set_code(StatusCode.NOT_FOUND)
-            context.set_details('Aluno not found')
+            context.set_details('Aluno não encontrado')
             return gerenciador_pb2.Aluno()
 
     def CreateAluno(self, request, context):
@@ -57,7 +55,7 @@ class AlunoService(gerenciador_pb2_grpc.AlunoServiceServicer):
             aluno.save()
         except Aluno.DoesNotExist:
             context.set_code(StatusCode.NOT_FOUND)
-            context.set_details('Aluno not found')
+            context.set_details('Aluno não encontrado')
         return gerenciador_pb2.Empty()
 
     def DeleteAluno(self, request, context):
@@ -65,12 +63,11 @@ class AlunoService(gerenciador_pb2_grpc.AlunoServiceServicer):
             Aluno.objects.get(pk=request.id).delete()
         except Aluno.DoesNotExist:
             context.set_code(StatusCode.NOT_FOUND)
-            context.set_details('Aluno not found')
+            context.set_details('Aluno não encontrado')
         return gerenciador_pb2.Empty()
 
 
-
-# --- Professor ---
+# Professor
 class ProfessorService(gerenciador_pb2_grpc.ProfessorServiceServicer):
     def ListProfessores(self, request, context):
         professores = Professor.objects.all()
@@ -86,7 +83,7 @@ class ProfessorService(gerenciador_pb2_grpc.ProfessorServiceServicer):
             return gerenciador_pb2.Professor(id=prof.id, nome=prof.nome, email=prof.email)
         except Professor.DoesNotExist:
             context.set_code(StatusCode.NOT_FOUND)
-            context.set_details('Professor not found')
+            context.set_details('Professor não encontrado')
             return gerenciador_pb2.Professor()
 
     def CreateProfessor(self, request, context):
@@ -102,7 +99,7 @@ class ProfessorService(gerenciador_pb2_grpc.ProfessorServiceServicer):
             prof.save()
         except Professor.DoesNotExist:
             context.set_code(StatusCode.NOT_FOUND)
-            context.set_details('Professor not found')
+            context.set_details('Professor não econtrado')
         return gerenciador_pb2.Empty()
 
     def DeleteProfessor(self, request, context):
@@ -110,12 +107,12 @@ class ProfessorService(gerenciador_pb2_grpc.ProfessorServiceServicer):
             Professor.objects.get(pk=request.id).delete()
         except Professor.DoesNotExist:
             context.set_code(StatusCode.NOT_FOUND)
-            context.set_details('Professor not found')
+            context.set_details('Professor não encontrado')
         return gerenciador_pb2.Empty()
 
 
 
-# --- Materia ---
+# Materia
 class MateriaService(gerenciador_pb2_grpc.MateriaServiceServicer):
     def ListMaterias(self, request, context):
         materias = Materia.objects.all()
@@ -131,7 +128,7 @@ class MateriaService(gerenciador_pb2_grpc.MateriaServiceServicer):
             return gerenciador_pb2.Materia(id=mat.id, nome=mat.nome, descricao=mat.descricao)
         except Materia.DoesNotExist:
             context.set_code(StatusCode.NOT_FOUND)
-            context.set_details('Materia not found')
+            context.set_details('Materia não encontrada')
             return gerenciador_pb2.Materia()
 
     def CreateMateria(self, request, context):
@@ -147,7 +144,7 @@ class MateriaService(gerenciador_pb2_grpc.MateriaServiceServicer):
             mat.save()
         except Materia.DoesNotExist:
             context.set_code(StatusCode.NOT_FOUND)
-            context.set_details('Materia not found')
+            context.set_details('Materia não encontrada')
         return gerenciador_pb2.Empty()
 
     def DeleteMateria(self, request, context):
@@ -155,12 +152,12 @@ class MateriaService(gerenciador_pb2_grpc.MateriaServiceServicer):
             Materia.objects.get(pk=request.id).delete()
         except Materia.DoesNotExist:
             context.set_code(StatusCode.NOT_FOUND)
-            context.set_details('Materia not found')
+            context.set_details('Materia não encontrada')
         return gerenciador_pb2.Empty()
 
 
 
-# --- Turma ---
+# Turma 
 class TurmaService(gerenciador_pb2_grpc.TurmaServiceServicer):
     def ListTurmas(self, request, context):
         turmas = Turma.objects.all()
@@ -188,7 +185,7 @@ class TurmaService(gerenciador_pb2_grpc.TurmaServiceServicer):
             )
         except Turma.DoesNotExist:
             context.set_code(StatusCode.NOT_FOUND)
-            context.set_details('Turma not found')
+            context.set_details('Turma não encontrada')
             return gerenciador_pb2.Turma()
 
     def CreateTurma(self, request, context):
@@ -218,7 +215,7 @@ class TurmaService(gerenciador_pb2_grpc.TurmaServiceServicer):
             turma.save()
         except Turma.DoesNotExist:
             context.set_code(StatusCode.NOT_FOUND)
-            context.set_details('Turma not found')
+            context.set_details('Turma não encontrada')
         except (Materia.DoesNotExist, Professor.DoesNotExist):
             context.set_code(StatusCode.INVALID_ARGUMENT)
             context.set_details('Materia ou Professor inválidos')
@@ -229,7 +226,7 @@ class TurmaService(gerenciador_pb2_grpc.TurmaServiceServicer):
             Turma.objects.get(pk=request.id).delete()
         except Turma.DoesNotExist:
             context.set_code(StatusCode.NOT_FOUND)
-            context.set_details('Turma not found')
+            context.set_details('Turma não encontrada')
         return gerenciador_pb2.Empty()
 
 def serve():
@@ -240,7 +237,7 @@ def serve():
     gerenciador_pb2_grpc.add_TurmaServiceServicer_to_server(TurmaService(), server)
     server.add_insecure_port('[::]:50051')
     server.start()
-    print('gRPC server running on port 50051')
+    print('gRPC server rodando na porta 50051')
     server.wait_for_termination()
 
 if __name__ == '__main__':

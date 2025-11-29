@@ -1,2 +1,14 @@
-Django>=3.2
-djangorestframework>=3.12
+# Framework Principal
+Django==5.2.8
+djangorestframework==3.15.2
+
+# gRPC e Protocol Buffers
+grpcio==1.68.1
+grpcio-tools==1.68.1
+protobuf==5.28.3
+
+# Autenticação
+django-cors-headers==4.6.0
+
+# Testes e Desenvolvimento
+requests==2.32.3

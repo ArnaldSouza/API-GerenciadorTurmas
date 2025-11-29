@@ -18,7 +18,7 @@ class APITester:
         self.test_results = []
     
     def log_test(self, test_name, success, details=""):
-        """Registra resultado do teste"""
+        #Registra resultados do teste
         result = {
             'test': test_name,
             'success': success,
@@ -31,7 +31,8 @@ class APITester:
         print(f"{status} {test_name}: {details}")
     
     def test_status_endpoint(self):
-        """Teste 1: Endpoint de status da API"""
+        # Teste 1: Endpoint de status da API
+        
         print("\n1. TESTANDO STATUS DA API")
         print("-" * 40)
         
@@ -51,7 +52,8 @@ class APITester:
             return False
     
     def test_authentication(self):
-        """Teste 2: Sistema de autenticação"""
+        # Teste 2: Sistema de autenticação
+        
         print("\n2. TESTANDO AUTENTICAÇÃO")
         print("-" * 40)
         
@@ -81,7 +83,7 @@ class APITester:
         
         # Teste de login com usuário existente
         login_data = {
-            "username": "aluno_pedro",
+            "username": "aluno_matheus",
             "password": "aluno123"
         }
         
@@ -117,7 +119,8 @@ class APITester:
             return False
     
     def test_crud_operations(self):
-        """Teste 3: Operações CRUD completas"""
+        # Teste 3: Operações CRUD completas
+        
         print("\n3. TESTANDO OPERAÇÕES CRUD")
         print("-" * 40)
         
@@ -182,7 +185,8 @@ class APITester:
             self.log_test("Listar turmas", False, f"Erro: {str(e)[:100]}")
     
     def test_specialized_endpoints(self):
-        """Teste 4: Endpoints especializados para React"""
+        # Teste 4: Endpoints especializados para React
+        
         print("\n4. TESTANDO ENDPOINTS ESPECIALIZADOS")
         print("-" * 40)
         
@@ -240,7 +244,8 @@ class APITester:
             self.log_test("Dashboard alunos", False, f"Erro: {str(e)[:100]}")
     
     def test_business_rules(self):
-        """Teste 5: Regras de negócio"""
+        # Teste 5: Regras de negócio
+        
         print("\n5. TESTANDO REGRAS DE NEGÓCIO")
         print("-" * 40)
         
@@ -281,7 +286,7 @@ class APITester:
             self.log_test("Turmas do professor", False, f"Erro: {str(e)[:100]}")
     
     def print_summary(self):
-        """Imprime resumo dos testes"""
+        # Imprime resumo dos testes
         print("\n" + "=" * 60)
         print("RESUMO DOS TESTES")
         print("=" * 60)

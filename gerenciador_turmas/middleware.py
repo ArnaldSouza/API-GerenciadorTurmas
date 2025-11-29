@@ -11,7 +11,7 @@ class StandardResponseMiddleware:
     def __call__(self, request):
         response = self.get_response(request)
         
-        # Apenas processar respostas JSON da API
+        # Processar respostas JSON da API
         if (request.path.startswith('/api/') and 
             hasattr(response, 'data') and 
             isinstance(response, Response)):

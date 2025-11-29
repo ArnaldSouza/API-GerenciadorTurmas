@@ -33,8 +33,9 @@ def criar_dados_teste():
     
     # Professores
     professores_data = [
-        {'username': 'prof_joao', 'email': 'joao@teste.com', 'nome': 'João Silva'},
-        {'username': 'prof_maria', 'email': 'maria@teste.com', 'nome': 'Maria Santos'},
+        {'username': 'prof_arnald', 'email': 'arnald@teste.com', 'nome': 'Arnald Souza'},
+        {'username': 'prof_bruno', 'email': 'bruno@teste.com', 'nome': 'Bruno Targa'},
+        {'username': 'prof_christopher', 'email': 'christopher@teste.com', 'nome': 'Christopher Kevin'},
     ]
     
     for prof_data in professores_data:
@@ -56,9 +57,9 @@ def criar_dados_teste():
     
     # Alunos
     alunos_data = [
-        {'username': 'aluno_pedro', 'email': 'pedro@teste.com', 'nome': 'Pedro Oliveira', 'matricula': '2024001'},
-        {'username': 'aluno_ana', 'email': 'ana@teste.com', 'nome': 'Ana Costa', 'matricula': '2024002'},
-        {'username': 'aluno_carlos', 'email': 'carlos@teste.com', 'nome': 'Carlos Lima', 'matricula': '2024003'},
+        {'username': 'aluno_gabriel', 'email': 'gabriel@teste.com', 'nome': 'Gabriel  Oliveira', 'matricula': '210394'},
+        {'username': 'aluno_matheus', 'email': 'matheus@teste.com', 'nome': 'Matheus Parizotto', 'matricula': '211067'},
+        {'username': 'aluno_victor', 'email': 'carlos@teste.com', 'nome': 'Victor Pires', 'matricula': '223585'},
     ]
     
     for aluno_data in alunos_data:
@@ -100,21 +101,21 @@ def criar_dados_teste():
     turmas_data = [
         {
             'materia': 'Programação Distribuída',
-            'professor': 'João Silva',
+            'professor': 'Arnald Souza',
             'horario': 'Segunda 08:00-10:00',
-            'alunos': ['Pedro Oliveira', 'Ana Costa']
+            'alunos': ['Gabriel Oliveira', 'Matheus Parizotto']
         },
         {
             'materia': 'Banco de Dados',
-            'professor': 'Maria Santos',
+            'professor': 'Christopher Kevin',
             'horario': 'Terça 14:00-16:00',
-            'alunos': ['Carlos Lima', 'Pedro Oliveira']
+            'alunos': ['Victor Nunes', 'Gabriel Oliveira']
         },
         {
             'materia': 'Engenharia de Software',
-            'professor': 'João Silva',
+            'professor': 'Bruno Targa',
             'horario': 'Quarta 10:00-12:00',
-            'alunos': ['Ana Costa']
+            'alunos': ['Matheus Parizotto']
         },
     ]
     

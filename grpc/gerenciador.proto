@@ -5,8 +5,6 @@ package gerenciador;
 message Empty {}
 
 
-
-
 // Aluno
 
 message AlunoId {
@@ -31,8 +29,6 @@ service AlunoService {
   rpc UpdateAluno (Aluno) returns (Empty);
   rpc DeleteAluno (AlunoId) returns (Empty);
 }
-
-
 
 
 // Professor
@@ -60,8 +56,6 @@ service ProfessorService {
 }
 
 
-
-
 // Materia
 
 message MateriaId {
@@ -85,8 +79,6 @@ service MateriaService {
   rpc UpdateMateria (Materia) returns (Empty);
   rpc DeleteMateria (MateriaId) returns (Empty);
 }
-
-
 
 
 // Turma

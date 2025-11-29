@@ -42,7 +42,7 @@ class UserLoginSerializer(serializers.Serializer):
                 raise serializers.ValidationError('Conta desativada.')
             attrs['user'] = user
         else:
-            raise serializers.ValidationError('Username e password são obrigatórios.')
+            raise serializers.ValidationError('Nome de usuário e senha são obrigatórios.')
         
         return attrs
 
