@@ -48,22 +48,42 @@ def dashboard_geral(request):
         })
     
     return Response({
-        'estatisticas_gerais': {
-            'total_alunos': total_alunos,
-            'total_professores': total_professores,
-            'total_materias': total_materias,
-            'total_turmas': total_turmas,
+        'success': True,
+        'data': {
+            'statistics': {
+                'total_alunos': total_alunos,
+                'total_professores': total_professores,
+                'total_materias': total_materias,
+                'total_turmas': total_turmas,
+            },
+            'user_profile': user_data,
+            'featured_items': top_turmas,
         },
-        'usuario_logado': user_data,
-        'top_turmas': top_turmas,
+        'meta': {
+            'resource_type': 'dashboard',
+            'user_type': request.user.tipo_usuario if hasattr(request.user, 'tipo_usuario') else 'anonymous'
+        }
     })
 
 @api_view(['GET'])
 def status_api(request):
     return Response({
-        'status': 'API funcionando',
-        'endpoints': [
-            '/api/auth/', '/api/alunos/', '/api/professores/', 
-            '/api/materias/', '/api/turmas/', '/api/dashboard/'
-        ]
+        'success': True,
+        'message': 'API funcionando corretamente',
+        'data': {
+            'version': '1.0.0',
+            'status': 'healthy',
+            'endpoints': {
+                'auth': '/api/auth/',
+                'alunos': '/api/alunos/',
+                'professores': '/api/professores/',
+                'materias': '/api/materias/',
+                'turmas': '/api/turmas/',
+                'dashboard': '/api/dashboard/'
+            }
+        },
+        'meta': {
+            'timestamp': request.META.get('HTTP_DATE'),
+            'server': 'Django REST Framework'
+        }
     })

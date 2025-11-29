@@ -17,23 +17,26 @@ class ProfessorViewSet(viewsets.ModelViewSet):
             return ProfessorCreateSerializer
         return ProfessorSerializer
     
+    def get_professor(self, pk):
+        return get_object_or_404(Professor, pk=pk)
+    
     @action(detail=True, methods=['get'])
     def turmas(self, request, pk=None):
-        professor = get_object_or_404(Professor, pk=pk)
+        professor = self.get_professor(pk)
         turmas = Turma.objects.filter(professor=professor)
         serializer = TurmaSerializer(turmas, many=True)
         return Response(serializer.data)
     
     @action(detail=True, methods=['get'])
     def materias(self, request, pk=None):
-        professor = get_object_or_404(Professor, pk=pk)       
+        professor = self.get_professor(pk)       
         materias = Materia.objects.all()
         serializer = MateriaSerializer(materias, many=True)
         return Response(serializer.data)
     
     @action(detail=True, methods=['post'])
     def criar_turma(self, request, pk=None):
-        professor = get_object_or_404(Professor, pk=pk)
+        professor = self.get_professor(pk)
         serializer = TurmaCreateSerializer(data=request.data)
         
         if serializer.is_valid():
@@ -44,11 +47,19 @@ class ProfessorViewSet(viewsets.ModelViewSet):
                 
                 turma = serializer.save()
                 response_serializer = TurmaSerializer(turma)
-                return Response(response_serializer.data, status=status.HTTP_201_CREATED)
+                return Response({
+                    'success': True,
+                    'message': 'Turma criada com sucesso',
+                    'data': response_serializer.data
+                }, status=status.HTTP_201_CREATED)
                 
             except Materia.DoesNotExist:
                 return Response(
-                    {'error': 'Matéria não encontrada'}, 
+                    {
+                        'success': False,
+                        'message': 'Matéria não encontrada',
+                        'error_code': 'MATERIA_NOT_FOUND'
+                    }, 
                     status=status.HTTP_404_NOT_FOUND
                 )
         

@@ -1,7 +1,4 @@
-"""
-Teste da comunicação gRPC
-Este script testa o servidor gRPC e suas funcionalidades
-"""
+
 import grpc
 import sys
 import os
@@ -28,7 +25,6 @@ class GRPCTester:
         self.test_results = []
     
     def log_test(self, test_name, success, details=""):
-        """Registra resultado do teste"""
         result = {
             'test': test_name,
             'success': success,
@@ -40,7 +36,6 @@ class GRPCTester:
         print(f"{status} {test_name}: {details}")
     
     def connect_to_server(self):
-        """Conecta ao servidor gRPC"""
         try:
             self.channel = grpc.insecure_channel('localhost:50051')
             self.stub = gerenciador_pb2_grpc.GerenciadorTurmasStub(self.channel)
@@ -55,7 +50,6 @@ class GRPCTester:
             return False
     
     def test_criar_aluno(self):
-        """Teste: Criar aluno via gRPC"""
         try:
             request = gerenciador_pb2.CriarAlunoRequest(
                 nome="Aluno gRPC Teste",
@@ -77,7 +71,6 @@ class GRPCTester:
             return None
     
     def test_listar_alunos(self):
-        """Teste: Listar alunos via gRPC"""
         try:
             request = gerenciador_pb2.Empty()
             response = self.stub.ListarAlunos(request, timeout=10)
@@ -90,7 +83,6 @@ class GRPCTester:
             return 0
     
     def test_criar_professor(self):
-        """Teste: Criar professor via gRPC"""
         try:
             request = gerenciador_pb2.CriarProfessorRequest(
                 nome="Professor gRPC Teste",
@@ -111,7 +103,6 @@ class GRPCTester:
             return None
     
     def test_criar_materia(self):
-        """Teste: Criar matéria via gRPC"""
         try:
             request = gerenciador_pb2.CriarMateriaRequest(
                 nome="Matéria gRPC Teste",
@@ -132,7 +123,6 @@ class GRPCTester:
             return None
     
     def test_criar_turma(self, professor_id, materia_id):
-        """Teste: Criar turma via gRPC"""
         if not professor_id or not materia_id:
             self.log_test("Criar turma gRPC", False, "Professor ou matéria não disponível")
             return None
@@ -158,7 +148,6 @@ class GRPCTester:
             return None
     
     def test_inscrever_aluno(self, aluno_id, turma_id):
-        """Teste: Inscrever aluno em turma via gRPC"""
         if not aluno_id or not turma_id:
             self.log_test("Inscrever aluno gRPC", False, "Aluno ou turma não disponível")
             return False
@@ -183,12 +172,10 @@ class GRPCTester:
             return False
     
     def close_connection(self):
-        """Fecha conexão gRPC"""
         if self.channel:
             self.channel.close()
     
     def print_summary(self):
-        """Imprime resumo dos testes gRPC"""
         print("\n" + "=" * 60)
         print("RESUMO DOS TESTES gRPC")
         print("=" * 60)

@@ -4,24 +4,26 @@ from alunos.serializers import AlunoSerializer
 from professores.serializers import ProfessorSerializer
 from materias.serializers import MateriaSerializer
 
-class TurmaSerializer(serializers.ModelSerializer):
+class BaseTurmaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Turma
+
+class TurmaSerializer(BaseTurmaSerializer):
     alunos = AlunoSerializer(many=True, read_only=True)
     professor = ProfessorSerializer(read_only=True)
     materia = MateriaSerializer(read_only=True)
     
-    class Meta:
-        model = Turma
+    class Meta(BaseTurmaSerializer.Meta):
         fields = ['id', 'materia', 'professor', 'alunos', 'horario']
 
-class TurmaCreateSerializer(serializers.ModelSerializer):
+class TurmaCreateSerializer(BaseTurmaSerializer):
     alunos_ids = serializers.ListField(
         child=serializers.IntegerField(),
         write_only=True,
         required=False
     )
     
-    class Meta:
-        model = Turma
+    class Meta(BaseTurmaSerializer.Meta):
         fields = ['materia', 'professor', 'horario', 'alunos_ids']
     
     def create(self, validated_data):
