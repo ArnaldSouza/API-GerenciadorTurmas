@@ -19,7 +19,6 @@ class ProfessorViewSet(viewsets.ModelViewSet):
     
     @action(detail=True, methods=['get'])
     def turmas(self, request, pk=None):
-        """Lista turmas do professor"""
         professor = get_object_or_404(Professor, pk=pk)
         turmas = Turma.objects.filter(professor=professor)
         serializer = TurmaSerializer(turmas, many=True)
@@ -27,7 +26,6 @@ class ProfessorViewSet(viewsets.ModelViewSet):
     
     @action(detail=True, methods=['get'])
     def materias(self, request, pk=None):
-        """Lista matérias que o professor pode lecionar"""
         professor = get_object_or_404(Professor, pk=pk)       
         materias = Materia.objects.all()
         serializer = MateriaSerializer(materias, many=True)
@@ -35,17 +33,13 @@ class ProfessorViewSet(viewsets.ModelViewSet):
     
     @action(detail=True, methods=['post'])
     def criar_turma(self, request, pk=None):
-        """Professor cria uma nova turma"""
         professor = get_object_or_404(Professor, pk=pk)
         serializer = TurmaCreateSerializer(data=request.data)
         
         if serializer.is_valid():
-            # Verifica se a matéria existe
             materia_id = serializer.validated_data['materia'].id
             try:
                 materia = Materia.objects.get(id=materia_id)
-                
-                # Força o professor da turma ser o professor logado
                 serializer.validated_data['professor'] = professor
                 
                 turma = serializer.save()

@@ -1,1 +1,0 @@
-# Dashboard app - endpoints gerais para React frontend

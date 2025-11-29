@@ -36,7 +36,6 @@ class InscricaoTurmaSerializer(serializers.Serializer):
     turma_id = serializers.IntegerField()
 
 class TurmaCardSerializer(serializers.ModelSerializer):
-    """Serializer otimizado para cards de turma no React"""
     materia_nome = serializers.CharField(source='materia.nome', read_only=True)
     professor_nome = serializers.CharField(source='professor.nome', read_only=True)
     total_alunos = serializers.SerializerMethodField()
@@ -50,11 +49,9 @@ class TurmaCardSerializer(serializers.ModelSerializer):
         return obj.alunos.count()
     
     def get_vagas_disponiveis(self, obj):
-        # Assumindo limite de 30 alunos por turma
         return 30 - obj.alunos.count()
 
 class TurmaDetalhesSerializer(serializers.ModelSerializer):
-    """Serializer completo para página de detalhes da turma"""
     materia = MateriaSerializer(read_only=True)
     professor = ProfessorSerializer(read_only=True)
     alunos = AlunoSerializer(many=True, read_only=True)
@@ -74,4 +71,4 @@ class TurmaDetalhesSerializer(serializers.ModelSerializer):
             return False
         if request.user.tipo_usuario != 'aluno':
             return False
-        return obj.alunos.filter(id=request.user.id).exists() == False
+        return not obj.alunos.filter(id=request.user.id).exists()

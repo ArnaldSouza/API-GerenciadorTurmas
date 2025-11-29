@@ -12,7 +12,6 @@ class MateriaCreateSerializer(serializers.ModelSerializer):
         fields = ['nome', 'descricao']
 
 class MateriaDropdownSerializer(serializers.ModelSerializer):
-    """Serializer otimizado para dropdowns no React"""
     label = serializers.CharField(source='nome', read_only=True)
     value = serializers.CharField(source='id', read_only=True)
     
@@ -21,7 +20,6 @@ class MateriaDropdownSerializer(serializers.ModelSerializer):
         fields = ['value', 'label', 'descricao']
 
 class MateriaResumoSerializer(serializers.ModelSerializer):
-    """Serializer para cards de matérias no dashboard"""
     total_turmas = serializers.SerializerMethodField()
     total_professores = serializers.SerializerMethodField()
     

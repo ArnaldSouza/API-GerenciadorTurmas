@@ -12,7 +12,6 @@ class ProfessorCreateSerializer(serializers.ModelSerializer):
         fields = ['nome', 'email']
 
 class ProfessorDropdownSerializer(serializers.ModelSerializer):
-    """Serializer otimizado para dropdowns no React"""
     label = serializers.CharField(source='nome', read_only=True)
     value = serializers.CharField(source='id', read_only=True)
     
@@ -21,7 +20,6 @@ class ProfessorDropdownSerializer(serializers.ModelSerializer):
         fields = ['value', 'label', 'email']
 
 class ProfessorResumoSerializer(serializers.ModelSerializer):
-    """Serializer para dashboard do professor"""
     total_turmas = serializers.SerializerMethodField()
     total_alunos = serializers.SerializerMethodField()
     

@@ -9,15 +9,11 @@ from turmas.models import Turma
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def dashboard_geral(request):
-    """Endpoint com dados gerais do sistema para dashboard"""
-    
-    # Estatísticas gerais
     total_alunos = Aluno.objects.count()
     total_professores = Professor.objects.count()
     total_materias = Materia.objects.count()
     total_turmas = Turma.objects.count()
     
-    # Dados específicos do usuário logado
     user_data = {}
     if request.user.tipo_usuario == 'aluno':
         try:
@@ -41,7 +37,6 @@ def dashboard_geral(request):
         except Professor.DoesNotExist:
             user_data = {'tipo': 'professor', 'erro': 'Perfil de professor não encontrado'}
     
-    # Top 5 turmas com mais alunos
     top_turmas = []
     for turma in Turma.objects.all()[:5]:
         top_turmas.append({
@@ -65,20 +60,10 @@ def dashboard_geral(request):
 
 @api_view(['GET'])
 def status_api(request):
-    """Endpoint para verificar se a API está funcionando"""
     return Response({
         'status': 'API funcionando',
-        'endpoints_disponiveis': {
-            'autenticacao': {
-                'registro': '/api/auth/register/',
-                'login': '/api/auth/login/',
-                'logout': '/api/auth/logout/',
-                'perfil': '/api/auth/profile/',
-            },
-            'alunos': '/api/alunos/',
-            'professores': '/api/professores/',
-            'materias': '/api/materias/',
-            'turmas': '/api/turmas/',
-            'dashboard': '/api/dashboard/',
-        }
+        'endpoints': [
+            '/api/auth/', '/api/alunos/', '/api/professores/', 
+            '/api/materias/', '/api/turmas/', '/api/dashboard/'
+        ]
     })

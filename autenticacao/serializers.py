@@ -12,7 +12,6 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         fields = ['username', 'email', 'password', 'password_confirm', 'tipo_usuario', 'first_name', 'last_name']
 
     def validate_email(self, value):
-        """Valida se o email já existe"""
         if CustomUser.objects.filter(email=value).exists():
             raise serializers.ValidationError("Este email já está em uso.")
         return value

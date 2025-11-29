@@ -9,7 +9,6 @@ from .serializers import UserRegistrationSerializer, UserLoginSerializer, UserPr
 @api_view(['POST'])
 @permission_classes([permissions.AllowAny])
 def register(request):
-    """Registra um novo usuário"""
     serializer = UserRegistrationSerializer(data=request.data)
     if serializer.is_valid():
         user = serializer.save()
@@ -24,7 +23,6 @@ def register(request):
 @api_view(['POST'])
 @permission_classes([permissions.AllowAny])
 def login_view(request):
-    """Autentica um usuário"""
     serializer = UserLoginSerializer(data=request.data)
     if serializer.is_valid():
         user = serializer.validated_data['user']
@@ -39,7 +37,6 @@ def login_view(request):
 
 @api_view(['POST'])
 def logout_view(request):
-    """Desloga um usuário"""
     try:
         request.user.auth_token.delete()
         logout(request)
@@ -49,6 +46,5 @@ def logout_view(request):
 
 @api_view(['GET'])
 def profile(request):
-    """Retorna perfil do usuário logado"""
     serializer = UserProfileSerializer(request.user)
     return Response(serializer.data)

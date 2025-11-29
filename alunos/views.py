@@ -17,7 +17,6 @@ class AlunoViewSet(viewsets.ModelViewSet):
     
     @action(detail=True, methods=['get'])
     def turmas(self, request, pk=None):
-        """Lista turmas do aluno"""
         aluno = get_object_or_404(Aluno, pk=pk)
         turmas = Turma.objects.filter(alunos=aluno)
         serializer = TurmaSerializer(turmas, many=True)
@@ -25,7 +24,6 @@ class AlunoViewSet(viewsets.ModelViewSet):
     
     @action(detail=True, methods=['get'])
     def turmas_disponiveis(self, request, pk=None):
-        """Lista turmas disponíveis para inscrição"""
         aluno = get_object_or_404(Aluno, pk=pk)
         turmas_matriculadas = Turma.objects.filter(alunos=aluno).values_list('id', flat=True)
         turmas_disponiveis = Turma.objects.exclude(id__in=turmas_matriculadas)
@@ -34,7 +32,6 @@ class AlunoViewSet(viewsets.ModelViewSet):
     
     @action(detail=True, methods=['post'])
     def inscrever_turma(self, request, pk=None):
-        """Aluno se inscreve em uma turma"""
         aluno = get_object_or_404(Aluno, pk=pk)
         serializer = InscricaoTurmaSerializer(data=request.data)
         
@@ -43,7 +40,6 @@ class AlunoViewSet(viewsets.ModelViewSet):
             try:
                 turma = Turma.objects.get(id=turma_id)
                 
-                # Verifica se aluno já está inscrito
                 if turma.alunos.filter(id=aluno.id).exists():
                     return Response(
                         {'error': 'Aluno já está inscrito nesta turma'}, 
@@ -63,7 +59,6 @@ class AlunoViewSet(viewsets.ModelViewSet):
     
     @action(detail=True, methods=['post'])
     def cancelar_inscricao(self, request, pk=None):
-        """Aluno cancela inscrição em uma turma"""
         aluno = get_object_or_404(Aluno, pk=pk)
         serializer = InscricaoTurmaSerializer(data=request.data)
         
@@ -84,15 +79,13 @@ class AlunoViewSet(viewsets.ModelViewSet):
     
     @action(detail=False, methods=['get'])
     def dropdown(self, request):
-        """Lista de alunos para dropdowns no React"""
         alunos = Aluno.objects.all()
         serializer = AlunoDropdownSerializer(alunos, many=True)
         return Response(serializer.data)
     
     @action(detail=False, methods=['get'])
     def dashboard(self, request):
-        """Dados para dashboard de alunos"""
-        alunos = Aluno.objects.all()[:10]  # Top 10
+        alunos = Aluno.objects.all()[:10]
         serializer = AlunoResumoSerializer(alunos, many=True)
         return Response({
             'alunos': serializer.data,
