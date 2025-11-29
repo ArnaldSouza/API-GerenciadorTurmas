@@ -1,10 +1,79 @@
-# API Genérica - Gerenciador de Turmas
+# API Gerenciador de Turmas
 
-## Visão Geral
+## Integrantes do Grupo
+- **Arnald Souza** - 236114
+- **Bruno Targa** - 211702
+- **Christopher Kevin Teixeira Costa** - 211660
+- **Gabriel Henrique Vieira de Oliveira** - 210394
+- **Matheus Parizotto Martins** - 211067
+- **Victor Soares Nunes Pires de Oliveira** - 223585
 
-Esta API foi projetada para ser **framework-agnostic**, funcionando com qualquer frontend (React, Vue, Angular, etc.) ou backend que consuma APIs REST.
+## O que é?
+Sistema de gerenciamento acadêmico que permite:
+- Cadastrar alunos, professores e matérias
+- Criar turmas e fazer inscrições
+- Gerenciar horários e controlar vagas
 
-## Padrão de Respostas
+## Como funciona?
+O sistema oferece **duas APIs**:
+- **REST API** (JSON) - Para frontends web/mobile
+- **gRPC API** - Para comunicação entre serviços
+
+Ambas fazem as mesmas operações: criar, listar, atualizar e deletar dados.
+
+## Como rodar?
+
+### 1. Instalar dependências
+```bash
+pip install -r requirements.txt
+```
+
+### 2. Configurar banco
+```bash
+python manage.py migrate
+python populate_data.py  # dados de exemplo
+```
+
+### 3. Iniciar servidor REST
+```bash
+python manage.py runserver
+```
+API disponível em: http://localhost:8000/
+
+### 4. Iniciar servidor gRPC (opcional)
+```bash
+cd grpc
+python gerenciador_grpc_server.py
+```
+
+## Exemplo de uso
+```bash
+# Listar alunos
+GET http://localhost:8000/api/alunos/
+
+# Criar aluno
+POST http://localhost:8000/api/alunos/
+{
+  "nome": "João Silva",
+  "matricula": "141414",
+  "email": "joao@exemplo.com"
+}
+
+# Inscrever aluno em turma
+POST http://localhost:8000/api/alunos/1/inscrever_turma/
+{
+  "turma_id": 1
+}
+```
+
+## Tecnologias
+Django + Django REST Framework + gRPC + SQLite
+
+---
+
+## Documentação Técnica Completa
+
+### Padrão de Respostas
 
 Todas as respostas seguem um padrão consistente:
 
