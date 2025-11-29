@@ -1,20 +1,24 @@
 import grpc
 from concurrent import futures
 import os
+import sys
 import django
+
+# Adicionar o diretório pai ao path para importações Django
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Setup Django
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'gerenciador_turmas.settings')
 django.setup()
 
-from grpc import StatusCode
+from grpc import StatusCode, ServicerContext
 from alunos.models import Aluno
 from professores.models import Professor
 from materias.models import Materia
 from turmas.models import Turma
-from grpc import ServicerContext
-from grpc import StatusCode
-from grpc import gerenciador_pb2, gerenciador_pb2_grpc
+
+import gerenciador_pb2  # type: ignore
+import gerenciador_pb2_grpc  # type: ignore
 
 
 

@@ -7,11 +7,13 @@ import sys
 import os
 
 # Adicionar o diretório grpc ao path
-sys.path.append(os.path.join(os.path.dirname(__file__), 'grpc'))
+grpc_path = os.path.join(os.path.dirname(__file__), 'grpc')
+if grpc_path not in sys.path:
+    sys.path.insert(0, grpc_path)
 
 try:
-    import gerenciador_pb2
-    import gerenciador_pb2_grpc
+    import gerenciador_pb2  # type: ignore
+    import gerenciador_pb2_grpc  # type: ignore
 except ImportError as e:
     print(f"❌ Erro ao importar arquivos gRPC: {e}")
     print("Certifique-se de que os arquivos .proto foram compilados:")
