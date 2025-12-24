@@ -1,13 +1,5 @@
 # API Gerenciador de Turmas
 
-## Integrantes do Grupo
-- **Arnald Souza** - 236114
-- **Bruno Targa** - 211702
-- **Christopher Kevin Teixeira Costa** - 211660
-- **Gabriel Henrique Vieira de Oliveira** - 210394
-- **Matheus Parizotto Martins** - 211067
-- **Victor Soares Nunes Pires de Oliveira** - 223585
-
 ## O que é?
 Sistema de gerenciamento acadêmico que permite:
 - Cadastrar alunos, professores e matérias
